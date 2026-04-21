@@ -22,17 +22,12 @@ public class TimingGatewayFilterFactory extends AbstractGatewayFilterFactory<Tim
                 return chain.filter(exchange);
             }
 
-            long start = System.nanoTime();
+            log.info("[{}] {} {}",
+                    config.getLabel(),
+                    exchange.getRequest().getMethod(),
+                    exchange.getRequest().getURI().getPath());
 
-            return chain.filter(exchange)
-                    .doFinally(signalType -> {
-                        long elapsedMs = (System.nanoTime() - start) / 1_000_000;
-                        log.info("[{}] {} {} took {} ms",
-                                config.getLabel(),
-                                exchange.getRequest().getMethod(),
-                                exchange.getRequest().getURI().getPath(),
-                                elapsedMs);
-                    });
+            return chain.filter(exchange);
         };
     }
 
