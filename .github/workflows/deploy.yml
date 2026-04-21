@@ -62,7 +62,7 @@ jobs:
             docker run -d \
               -p 80:80 \
               -e USER_URL=http://user:5000 \
-              -e CONNECTION_URL=http://conexoes:5000 \
+              -e CONNECTION_URL=http://conexoes:8080 \
               --network=rede \
               --name ${{ env.CONTAINER_NAME }} \
               ${{ env.DOCKER_IMAGE }}:${{ github.sha }}
