@@ -20,11 +20,12 @@ public class GatewayConfig {
     public RouteLocator routes(RouteLocatorBuilder builder, TimingGatewayFilterFactory timing) {
         return builder.routes()
                 .route("user-route", r -> r.path("/user/**")
-                        .filters(f -> f.stripPrefix(1)
+                        .filters(f -> f
                                 .filter(timing.apply(config(true, "user-route"))))
                         .uri(userServiceUrl))
                 .route("connections-route", r -> r.path("/connections/**")
-                        .filters(f -> f.stripPrefix(1))
+                        .filters(f -> f
+                                .filter(timing.apply(config(true, "connection-route"))))
                         .uri(connectionsServiceUrl))
                 .build();
     }
